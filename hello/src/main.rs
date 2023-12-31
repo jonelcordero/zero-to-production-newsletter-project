@@ -14,8 +14,17 @@ fn main() {
         unwrap();
 
     let pool = ThreadPool::new(4);
+
+    let mut counter = 0;
     
     for stream in listener.incoming() {
+        if counter == 2{
+            println!("Shutting down.");
+            break;
+        }
+
+        counter += 1;
+
         let stream = stream.unwrap();
 
         pool.execute(|| {
